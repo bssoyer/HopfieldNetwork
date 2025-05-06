@@ -36,41 +36,32 @@ int reference_pattern_matrix[] = {
                                 0, 1, 1, 1, 1, 1, 0};
 
 
-// Initializes the Hopfield network weights randomly
+// Initializes the Hopfield network weights
 void 
-initialize_weights(float weights[][NUM_NEURONS]) {
+init_hopfield_weights(float weights[][NUM_NEURONS]) {
     srand(time(NULL));
     
     for (int i = 0; i < NUM_NEURONS; i++) {
-        for (int j = 0; j <= i; j++) {
-            if (i!= j) {
-                //The interval of random values:[- 0.5, 0.5]
-                weights[i][j] = ((float)rand()/RAND_MAX) - 0.5; 
-                weights[j][i] = weights[i][j];
-            } else {
-                weights[i][j] = 0.0; // No self-connections
-            }
-        }
+      for (int j = 0; j <= i; j++)
+        weights[i][j] = 0.0;
     }
 }
 
 
-// Trains Hopfield network using Hebbian learning
 void 
-train_network(float weights[][NUM_NEURONS], int pattern[NUM_NEURONS]) {
+hebbian_training(float weights[][NUM_NEURONS], int pattern[NUM_NEURONS]) {
     for (int i = 0; i < NUM_NEURONS; i++) {
         for (int j = 0; j < NUM_NEURONS; j++) {
-            if (i!= j) {
-                weights[i][j] += (2 * pattern[i]-1) * (2 * pattern[j]-1);
-            }
+          if (i != j) {
+            weights[i][j] += (2 * pattern[i] - 1) * (2 * pattern[j] - 1);
+          }
         }
     }
 }
 
 
-// Updates neuron states (synchronous update)
 void 
-update_neurons(float weights[][NUM_NEURONS], int neurons[NUM_NEURONS]) {
+synchronous_update(float weights[][NUM_NEURONS], int neurons[NUM_NEURONS]) {
     int new_neurons[NUM_NEURONS] = {0,};
     
     for (int i = 0; i < NUM_NEURONS; i++) {
@@ -88,7 +79,7 @@ update_neurons(float weights[][NUM_NEURONS], int neurons[NUM_NEURONS]) {
 
 // Function to display the pattern
 void 
-display_pattern(int pattern[NUM_NEURONS]) {
+render_pattern(int pattern[NUM_NEURONS]) {
     for (int i = 0; i < NUM_NEURONS; i++) {
         printf("%c ", pattern[i] ? SOLID_BLOCK : SPACE_CHAR);
         if ( (i + 1) % 7 == 0 ) {
@@ -101,22 +92,19 @@ display_pattern(int pattern[NUM_NEURONS]) {
 int main() {
 
     // Initialize weights
-    initialize_weights(weights);
+    init_hopfield_weights(weights);
 
     // Train network
-    train_network(weights, reference_pattern_matrix);
+    hebbian_training(weights, reference_pattern_matrix);
 
     // Recall process
     printf("Distorted Pattern:\n");
-    display_pattern(distorted_pattern_matrix);
-    
-    /*printf("Reference Pattern:\n");
-    display_pattern(reference_pattern_matrix);*/
+    render_pattern(distorted_pattern_matrix);
     
     for (int itr = 0; itr < RECALL_ITER; itr++) {
-        update_neurons(weights,distorted_pattern_matrix);
+        synchronous_update(weights,distorted_pattern_matrix);
         printf("Iteration %d:\n", itr + 1);
-        display_pattern(distorted_pattern_matrix);
+        render_pattern(distorted_pattern_matrix);
     }
 
     return 0;
