@@ -36,7 +36,7 @@ These would be interesting extensions to the Hopfield network projects.
 
 
 ### Setting the Environment
-Visual Studio Community 2022 is the preferred platform for running this project, which does not use external libraries or open-source software. However, previous releases of Visual Studio (2019, 2017, 2015, etc.) shall not pose any problems with the source code, because the app is written in plain C language.
+Visual Studio Community 2022 is the preferred platform for running this project, which does not use external libraries or open-source software. However, previous releases of Visual Studio (2019, 2017, 2015) shall not pose any problems with the source code, because the app is written in plain C language.
  
 Visit https://visualstudio.microsoft.com/tr/downloads/?cid=learn-onpage-download-install-visual-studio-page-cta to install the community edition.
 After installing Visual Studio Community 2022, click on the solution file `HopfieldNetwork.sln` to open the development environment. 
