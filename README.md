@@ -21,6 +21,20 @@ The network in this project is trained using a principle derived from **Hebbian 
 
 This implementation allows exploration of fundamental Hopfield network dynamics and the application of Hebbian learning for pattern storage and recall.
 
+### The Role of the Energy Function
+The energy function provides a theoretical understanding of why the network settles into stable states (attractors). Each update that changes a neuron's state decreases (or does not change) this energy, ensuring the network doesn't oscillate indefinitely and eventually finds a minimum. The stored patterns ideally correspond to these energy minima.
+
+Why have we not applied the energy function? Because it is not strictly necessary for the network to operate. Our network stores patterns by modifying weights (Hebbian learning) and recalls patterns by iteratively updating neuron states based on the weighted sum of inputs. This update process implicitly follows the gradient of the energy landscape without your code needing to calculate the value of `E` at each step. The network "finds its way" to a minimum based on local rules.
+
+If our network successfully stores and recalls patterns, the absence of an explicit energy calculation function doesn't mean the core associative memory demonstration is flawed. The primary goal is often to show this recall behavior. For the demonstration projects, HopfieldNetworkSRP/LCP  using the energy function is not a significant drawback for demonstrating the fundamental recall capabilities of our Hopfield network.
+
+However, calculating the energy of different states (initial distorted patterns, intermediate states, final converged patterns, stored reference patterns) can provide valuable insights since
++ We can numerically verify that stored patterns are indeed low-energy states.
++ We can see if the energy decreases during the recall process.
++ It helps understand the "depth" of attractors or diagnose issues if the network gets stuck in unexpected states.
+These would be interesting extensions to the Hopfield network projects.
+
+
 ### Setting the Environment
 Visual Studio Community 2022 is the preferred platform for running this project, which does not use external libraries or open-source software. However, previous releases of Visual Studio (2019, 2017, 2015, etc.) shall not pose any problems with the source code, because the app is written in plain C language.
  
