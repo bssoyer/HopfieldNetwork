@@ -40,4 +40,4 @@ Visual Studio Community 2022 is the preferred platform for running this project,
  
 Visit https://visualstudio.microsoft.com/tr/downloads/?cid=learn-onpage-download-install-visual-studio-page-cta to install the community edition.
 After installing Visual Studio Community 2022, click on the solution file `HopfieldNetwork.sln` to open the development environment. 
-Select `> Build > Build HopfieldNetwork`. After the build you can locate the executable in `C:\...\HopfieldNetwork\x64\Debug` directory.
+Select `> Build > Build HopfieldNetworkSRP`. After the build you can locate the executable in `C:\...\HopfieldNetworkSRP\x64\Debug` directory.
